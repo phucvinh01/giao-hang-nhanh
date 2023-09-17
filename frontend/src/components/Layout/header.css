@@ -1,0 +1,17 @@
+.header-avatar{
+    padding: 10px;
+    background-color: beige ;
+    border: none;
+    border-radius: 50%;
+}
+.header-avatar:hover {
+    border: 1px solid rgb(241, 5, 163);
+    transition: all ease-in .3s;
+}
+.header-logout{
+    padding: 10px;
+    color: black;
+    border: none;
+    text-transform: uppercase;
+    background-color: transparent;
+}
