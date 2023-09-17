@@ -1,9 +1,10 @@
 import React from 'react'
+import Products from '../components/Products'
 
 const Product = () => {
     return (
         <>
-            <section style={ { backgroundColor: "aqua" } }></section>
+            <Products />
         </>
     )
 }

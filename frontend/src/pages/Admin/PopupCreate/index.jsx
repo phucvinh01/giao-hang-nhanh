@@ -1,13 +1,25 @@
-import React, { useState, useId } from 'react';
+import React, { useState, useId, useEffect } from 'react';
 import { Input, Modal, Row, Col, Select, Upload } from 'antd';
-import { useNavigate } from 'react-router-dom'
+import './popup.css'
 const PopupCreate = () => {
-    const navigate = useNavigate()
+
     const { TextArea } = Input;
     const id = useId();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [imageUrl, setImageUrl] = useState()
     const [loading, setLoading] = useState(false);
+
+
+    useEffect(() => {
+        const popup = () => {
+            document.querySelector('.ant-modal-content')?.classList.add('popup')
+        }
+        if (isModalOpen) {
+            popup()
+        }
+        return popup()
+    }, [isModalOpen])
+
     const uploadButton = (
         <div>
             { loading ? <i className="fa-solid fa-spinner fa-spin-pulse"></i> : <i className="fa-solid fa-plus"></i> }
@@ -36,7 +48,7 @@ const PopupCreate = () => {
                 <i class='fa-solid fa-circle-plus'></i>
                 <em className='mx-1'>Create</em>
             </button>
-            <Modal width={ 800 } title="Create" open={ isModalOpen } footer={ null } onOk={ handleOk } onCancel={ handleCancel }>
+            <Modal width={ 800 } title="Create" open={ isModalOpen } footer={ null } onOk={ handleOk } onCancel={ handleCancel } className='popup'>
                 <hr></hr>
                 <Row justify={ 'space-around' }>
                     <Col span={ 7 }>

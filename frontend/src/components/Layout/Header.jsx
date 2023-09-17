@@ -17,7 +17,6 @@ const Header = () => {
         setUsers(user)
     }, [users])
 
-    console.log(users);
 
     const handleLogOut = () => {
         logout(dispatch, id, navigate, accessToken)

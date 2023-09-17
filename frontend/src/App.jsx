@@ -1,16 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import ErrorPage from './pages/Error'
 import Layout from './components/Layout'
 import Product from './pages/Product'
 import Admin from './pages/Admin'
-import ProductAdmin from './pages/Admin/ProductAdmin'
-import Order from './pages/Admin/Order'
+import ProductAdmin from './pages/Admin/pages/Product'
+import Order from './pages/Admin/pages/Order'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Employess from './pages/Admin/pages/Employess'
+import Sales from './pages/Admin/pages/Sales'
+import { getProductList } from './redux/api'
+import { useDispatch, useSelector } from 'react-redux'
 function App() {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    getProductList(dispatch)
+  }, [dispatch])
+
+  const products = useSelector((state) => state.product.products.data);
+
+  console.log(products);
+
 
   return (
     <>
@@ -23,6 +39,8 @@ function App() {
         <Route path='/admin' element={ <Admin /> }>
           <Route path='/admin/product' element={ <ProductAdmin /> } />
           <Route path='/admin/order' element={ <Order /> } />
+          <Route path='/admin/employee' element={ <Employess /> } />
+          <Route path='/admin/sale' element={ <Sales /> } />
         </Route>
       </Routes>
       <ToastContainer

@@ -26,7 +26,6 @@ const LoginPopup = () => {
     };
 
     const handleSubmit = () => {
-        console.log(username, password);
         const auth = { username: username, password: password }
         login(auth, dispatch, navigate)
         handleCancel()
