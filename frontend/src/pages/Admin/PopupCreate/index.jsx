@@ -1,37 +1,36 @@
 import React, { useState, useId, useEffect } from 'react';
-import { Input, Modal, Row, Col, Select, Upload } from 'antd';
-import './popup.css'
+import { Input, Modal, Row, Col, Select, Button, Spin } from 'antd';
+import Upload from '../../../components/Uploads';
+import './popup.css';
+import cloudinary from '../../../util/Cloudnary';
+import Axios from '../../../axios/Axios';
+import { toast } from 'react-toastify'
+import { getProductList } from '../../../redux/api'
+import { useDispatch, useSelector } from 'react-redux'
 const PopupCreate = () => {
 
     const { TextArea } = Input;
     const id = useId();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [imageUrl, setImageUrl] = useState()
-    const [loading, setLoading] = useState(false);
-
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [category, setCategory] = useState('');
+    const [brand, setBrand] = useState('');
+    const [description, setDescription] = useState('');
+    const [image, setImage] = useState('');
+    const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const popup = () => {
-            document.querySelector('.ant-modal-content')?.classList.add('popup')
-        }
+            document.querySelector('.ant-modal-content')?.classList.add('popup');
+        };
         if (isModalOpen) {
-            popup()
+            popup();
         }
-        return popup()
-    }, [isModalOpen])
+        return () => popup();
+    }, [isModalOpen]);
 
-    const uploadButton = (
-        <div>
-            { loading ? <i className="fa-solid fa-spinner fa-spin-pulse"></i> : <i className="fa-solid fa-plus"></i> }
-            <div
-                style={ {
-                    marginTop: 8,
-                } }
-            >
-                Upload
-            </div>
-        </div>
-    );
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -42,81 +41,151 @@ const PopupCreate = () => {
         setIsModalOpen(false);
     };
 
+    const onChange = (value) => {
+        setCategory(value)
+    }
+
+    const handleClick = async () => {
+        setLoading(true)
+        let res = await cloudinary(image)
+        if (res.statusText === "OK") {
+            let result = await Axios.post('/v1/product/', {
+                name: name,
+                price: price,
+                description: description,
+                img: res.data.secure_url,
+                brand: brand,
+                category: category,
+            })
+            console.log(result);
+            if (result) {
+                toast.success("Insert successful....")
+                handleCancel();
+                getProductList(dispatch);
+            }
+        }
+        else {
+            toast.error("Insert Failed......")
+        }
+        setLoading(false)
+    }
+
     return (
         <>
-            <button className='btn btn-info' onClick={ showModal }>
-                <i class='fa-solid fa-circle-plus'></i>
+            <button
+                className='btn btn-info'
+                onClick={ showModal }>
+                <i className='fa-solid fa-circle-plus'></i>
                 <em className='mx-1'>Create</em>
             </button>
-            <Modal width={ 800 } title="Create" open={ isModalOpen } footer={ null } onOk={ handleOk } onCancel={ handleCancel } className='popup'>
+            <Modal
+                width={ 800 }
+                title='Create'
+                open={ isModalOpen }
+                footer={ null }
+                onOk={ handleOk }
+                onCancel={ handleCancel }
+                className='popup'>
                 <hr></hr>
-                <Row justify={ 'space-around' }>
-                    <Col span={ 7 }>
-                        <div className="mb-3">
-                            <label htmlFor={ id + '-name' } className="form-label fw-bolder">Name</label>
-                            <input type="text" className="form-control" id={ id + '-name' } ></input>
+                <div className='row g-2'>
+                    <div className='col-lg-4 col-md-12 col-sm-12'>
+                        <div className='mb-3'>
+                            <label
+                                htmlFor={ id + '-name' }
+                                className='form-label fw-bolder'>
+                                Name
+                            </label>
+                            <input
+                                onChange={ (e) => setName(e.target.value) }
+                                type='text'
+                                className='form-control'
+                                id={ id + '-name' }></input>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor={ id + '-price' } className="form-label fw-bolder">Price</label>
-                            <input type="number" className="form-control" id={ id + '-price' } ></input>
+                        <div className='mb-3'>
+                            <label
+                                htmlFor={ id + '-price' }
+                                className='form-label fw-bolder'>
+                                Price
+                            </label>
+                            <input
+                                onChange={ (e) => setPrice(e.target.value) }
+                                type='number'
+                                className='form-control'
+                                id={ id + '-price' }></input>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor={ id + '-category' } className="form-label fw-bolder">Category</label>
+                        <div className='mb-3'>
+                            <label
+                                htmlFor={ id + '-category' }
+                                className='form-label fw-bolder'>
+                                Category
+                            </label>
                             <Select
+                                onChange={ onChange }
                                 id='category'
-                                defaultValue="lucy"
                                 style={ {
                                     width: '100%',
                                 } }
                                 allowClear
                                 options={ [
                                     {
-                                        value: 'lucy',
-                                        label: 'Lucy',
+                                        value: 'Chăm sóc cơ thể',
+                                        label: 'Chăm sóc cơ thể',
+                                    },
+                                    {
+                                        value: 'Chăm sóc da mặt',
+                                        label: 'Chăm sóc da mặt',
+                                    },
+                                    {
+                                        value: 'Trang điểm',
+                                        label: 'Trang điểm',
+                                    },
+                                    {
+                                        value: 'Phụ kiện',
+                                        label: 'Phụ kiện',
                                     },
                                 ] }
                             />
                         </div>
-
-                    </Col>
-                    <Col span={ 7 }>
-                        <div className="mb-3">
-                            <label htmlFor={ id + '-brand' } className="form-label fw-bolder">Brand</label>
-                            <input type="text" className="form-control" id={ id + '-brand' } ></input>
+                    </div>
+                    <div className='col-lg-4 col-md-12 col-sm-12'>
+                        <div className='mb-3'>
+                            <label
+                                htmlFor={ id + '-brand' }
+                                className='form-label fw-bolder'>
+                                Brand
+                            </label>
+                            <input
+                                onChange={ (e) => setBrand(e.target.value) }
+                                type='text'
+                                className='form-control'
+                                id={ id + '-brand' }></input>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor={ id + '-description' } className="form-label fw-bolder">Description</label>
-                            <TextArea style={ {
-                                height: 120,
-                                resize: 'none',
-                            } } type="text" className="form-control" id={ id + '-description' } ></TextArea>
+                        <div className='mb-3'>
+                            <label
+                                htmlFor={ id + '-description' }
+                                className='form-label fw-bolder'>
+                                Description
+                            </label>
+                            <TextArea
+                                onChange={ (e) => setDescription(e.target.value) }
+                                style={ {
+                                    height: 130,
+                                    resize: 'none',
+                                } }
+                                type='text'
+                                className='form-control'
+                                id={ id + '-description' }></TextArea>
                         </div>
-                    </Col>
-                    <Col span={ 7 }>
-                        <div className="mb-3">
-                            <Upload
-
-                                name="avatar"
-                                listType="picture-card"
-                                className="avatar-uploader"
-                                showUploadList={ false }
-                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                            >
-                                { imageUrl ? (
-                                    <img
-                                        src={ imageUrl }
-                                        alt="avatar"
-                                        style={ {
-                                            width: '100%',
-                                        } }
-                                    />
-                                ) : (
-                                    uploadButton
-                                ) }
-                            </Upload>
+                    </div>
+                    <div className='col-lg-4 col-md-12 col-sm-12'>
+                        <div className='p-0'>
+                            <Upload setImage={ setImage } />
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
+                <div className='d-flex justify-content-end'>
+                    <button disabled={ loading ? true : false } className='btn btn-dark' onClick={ handleClick }>{ loading ? <Spin></Spin> : <>Create</> } </button>
+                </div>
             </Modal>
         </>
     );

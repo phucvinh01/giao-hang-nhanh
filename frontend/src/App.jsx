@@ -14,35 +14,24 @@ import Employess from './pages/Admin/pages/Employess'
 import Sales from './pages/Admin/pages/Sales'
 import { getProductList } from './redux/api'
 import { useDispatch, useSelector } from 'react-redux'
+import About from './pages/About'
 function App() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const user = useSelector((state) => state.auth.login.currentUser);
+  useEffect(() => {
+    if (user?.role === 1) {
+      navigate('/admin')
+    }
+  }, [user])
 
   useEffect(() => {
     getProductList(dispatch)
   }, [dispatch])
 
-  const products = useSelector((state) => state.product.products.data);
-
-  console.log(products);
-
-
   return (
     <>
-      <Routes>
-        <Route path="/" element={ <Layout /> }>
-          <Route index element={ <Home /> } />
-          <Route path='/product' element={ <Product /> } />
-          <Route path="*" element={ <ErrorPage /> } />
-        </Route>
-        <Route path='/admin' element={ <Admin /> }>
-          <Route path='/admin/product' element={ <ProductAdmin /> } />
-          <Route path='/admin/order' element={ <Order /> } />
-          <Route path='/admin/employee' element={ <Employess /> } />
-          <Route path='/admin/sale' element={ <Sales /> } />
-        </Route>
-      </Routes>
       <ToastContainer
         position="top-center"
         autoClose={ 5000 }
@@ -55,6 +44,22 @@ function App() {
         pauseOnHover
         theme="light"
       />
+      <Routes>
+        <Route path="/" element={ <Layout /> }>
+          <Route index element={ <Home /> } />
+          <Route path='/product' element={ <Product /> } />
+          <Route path='/about' element={ <About /> } />
+
+          <Route path="*" element={ <ErrorPage /> } />
+        </Route>
+        <Route path='/admin' element={ <Admin /> }>
+          <Route path='/admin/product' element={ <ProductAdmin /> } />
+          <Route path='/admin/order' element={ <Order /> } />
+          <Route path='/admin/employee' element={ <Employess /> } />
+          <Route path='/admin/sale' element={ <Sales /> } />
+        </Route>
+      </Routes>
+
     </>
   )
 }

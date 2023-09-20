@@ -5,7 +5,12 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 600;
   font-size: 18px;
- 
+
+ }
+ body {
+    min-height: 100vh;
+    overflow: auto !important;
+
  }
  a {
      text-decoration: none !important;
@@ -14,7 +19,9 @@
  .active {
     background-color: white;
     color: black !important;
-    padding: 5px 20px;
     border-radius: 20px;
+ }
+ main {
+    scrollbar-width: 10px;
  }
 

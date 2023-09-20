@@ -1,9 +1,10 @@
-const { Product } = require("../model/productModel");
+const { Brand } = require("../model/brandModel");
 
-const productController = {
+
+const brandController = {
     //create
     create: async (req, res) => {
-        const newProduct = new Product(req.body)
+        const newProduct = new Brand(req.body)
         try {
             const savedProduct = await newProduct.save();
             res.status(200).json(savedProduct);
@@ -14,8 +15,8 @@ const productController = {
     //GET ALL
     getAll: async (req, res) => {
         try {
-            const products = await Product.find();
-            res.status(200).json(products);
+            const brands = await Brand.find();
+            res.status(200).json(brands);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -24,28 +25,28 @@ const productController = {
     //get by id
     getById: async (req, res) => {
         try {
-            const product = await Product.findById(req.params.id);
-            res.status(200).json(product);
+            const brands = await Brand.findById(req.params.id);
+            res.status(200).json(brands);
         } catch (err) {
             res.status(500).json(err);
         }
     },
 
     //UPDATE
-    updateProduct: async (req, res) => {
+    updateBrand: async (req, res) => {
         try {
-            const product = await Product.findById(req.params.id);
-            await product.updateOne({ $set: req.body });
+            const brands = await Brand.findById(req.params.id);
+            await brands.updateOne({ $set: req.body });
             res.status(200).json("Updated successfully!");
         } catch (err) {
             res.status(500).json(err);
         }
     },
 
-    //DELETE Product
-    deleteProduct: async (req, res) => {
+    //DELETE Brand
+    deleteBrand: async (req, res) => {
         try {
-            await Product.findByIdAndDelete(req.params.id);
+            await Brand.findByIdAndDelete(req.params.id);
             res.status(200).json({ "success": true });
         } catch (err) {
             res.status(500).json({ "success": false });
@@ -53,4 +54,4 @@ const productController = {
     },
 };
 
-module.exports = productController;
+module.exports = brandController;

@@ -1,5 +1,5 @@
 import axios from '../axios/Axios'
-import { loginFailed, loginStart, loginSuccess } from './authSlice'
+import { loginFailed, loginStart, loginSuccess, logoutFailed, logoutStart, logoutSuccess } from './authSlice'
 import { getProductFailed, getProductStart, getProductSuccess } from './proSlice'
 import { getProducts } from '../axios/ProductRequest'
 

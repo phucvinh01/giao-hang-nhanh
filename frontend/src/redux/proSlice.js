@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-
 const proSlice = createSlice({
     name: "products",
     initialState: {

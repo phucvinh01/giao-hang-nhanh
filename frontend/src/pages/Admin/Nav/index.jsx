@@ -1,37 +1,43 @@
-import React from 'react'
-import NavItem from '../NavItem'
+import React from 'react';
+import NavItem from '../NavItem';
 
 const Nav = () => {
     return (
         <>
-            <ul className="w-100 nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                <NavItem
-                    title={ "Product" }
-                    icon={ 'fa-solid fa-store' }
-                    href={ "/admin/product" }
+            <nav
+                id='sidebarMenu'
+                className='collapse d-lg-block sidebar collapse bg-white'>
+                <div className='position-sticky'>
+                    <div className='list-group list-group-flush mx-3 mt-4'>
+                        <NavItem
+                            icon={ 'fas fa-chart-bar fa-fw me-3' }
+                            title={ 'Product' }
+                            href={ '/admin/product' }
 
-                />
-                <NavItem
-                    title={ "Employees" }
-                    icon={ 'fa-solid fa-user-group' }
-                    href={ "/admin/employee" }
+                        />
+                        <NavItem
+                            icon={ 'fas fa-chart-bar fa-fw me-3' }
+                            title={ 'Orders' }
+                            href={ '/admin/order' }
 
-                />
-                <NavItem
-                    title={ "Orders" }
-                    icon={ "fa-solid fa-truck-fast" }
-                    href={ "/admin/order" }
+                        />
 
-                />
-                <NavItem
-                    title={ "Statistical" }
-                    icon={ "fa-solid fa-file-import" }
-                    href={ "/admin/sale" }
+                        <NavItem
+                            icon={ 'fas fa-users fa-fw me-3' }
+                            title={ 'Users' }
+                            href={ '/admin/employee' }
 
-                />
-            </ul>
+                        />
+                        <NavItem
+                            href={ '/admin/sale' }
+                            icon={ 'fas fa-money-bill fa-fw me-3' }
+                            title={ 'Sales' }
+                        />
+                    </div>
+                </div>
+            </nav>
         </>
-    )
-}
+    );
+};
 
-export default Nav
+export default Nav;

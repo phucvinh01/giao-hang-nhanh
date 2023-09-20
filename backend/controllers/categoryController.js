@@ -1,9 +1,10 @@
-const { Product } = require("../model/productModel");
+const { Category } = require("../model/categoryModel");
 
-const productController = {
+
+const categoryController = {
     //create
     create: async (req, res) => {
-        const newProduct = new Product(req.body)
+        const newProduct = new Category(req.body)
         try {
             const savedProduct = await newProduct.save();
             res.status(200).json(savedProduct);
@@ -14,8 +15,8 @@ const productController = {
     //GET ALL
     getAll: async (req, res) => {
         try {
-            const products = await Product.find();
-            res.status(200).json(products);
+            const categorys = await Category.find();
+            res.status(200).json(categorys);
         } catch (err) {
             res.status(500).json(err);
         }
@@ -24,28 +25,28 @@ const productController = {
     //get by id
     getById: async (req, res) => {
         try {
-            const product = await Product.findById(req.params.id);
-            res.status(200).json(product);
+            const categorys = await Caterogy.findById(req.params.id);
+            res.status(200).json(categorys);
         } catch (err) {
             res.status(500).json(err);
         }
     },
 
     //UPDATE
-    updateProduct: async (req, res) => {
+    updateCaterogy: async (req, res) => {
         try {
-            const product = await Product.findById(req.params.id);
-            await product.updateOne({ $set: req.body });
+            const categorys = await Caterogy.findById(req.params.id);
+            await categorys.updateOne({ $set: req.body });
             res.status(200).json("Updated successfully!");
         } catch (err) {
             res.status(500).json(err);
         }
     },
 
-    //DELETE Product
-    deleteProduct: async (req, res) => {
+    //DELETE Caterogy
+    deleteCaterogy: async (req, res) => {
         try {
-            await Product.findByIdAndDelete(req.params.id);
+            await Caterogy.findByIdAndDelete(req.params.id);
             res.status(200).json({ "success": true });
         } catch (err) {
             res.status(500).json({ "success": false });
@@ -53,4 +54,4 @@ const productController = {
     },
 };
 
-module.exports = productController;
+module.exports = categoryController;

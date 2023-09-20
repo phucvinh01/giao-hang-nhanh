@@ -1,8 +1,14 @@
 import React from 'react'
+import SearchBox from '../components/Searchbox'
 
 const Home = () => {
     return (
-        <div>Home</div>
+        <>
+            <main className='container'>
+                <section className='container w-50'>
+                </section>
+            </main>
+        </>
     )
 }
 
