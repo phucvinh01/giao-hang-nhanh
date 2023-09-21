@@ -15,6 +15,7 @@ import Sales from './pages/Admin/pages/Sales'
 import { getProductList } from './redux/api'
 import { useDispatch, useSelector } from 'react-redux'
 import About from './pages/About'
+import Category from './pages/Category'
 function App() {
 
   const dispatch = useDispatch()
@@ -34,29 +35,30 @@ function App() {
     <>
       <ToastContainer
         position="top-center"
-        autoClose={ 5000 }
-        hideProgressBar={ false }
-        newestOnTop={ false }
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
         closeOnClick
-        rtl={ false }
+        rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
         theme="light"
       />
       <Routes>
-        <Route path="/" element={ <Layout /> }>
-          <Route index element={ <Home /> } />
-          <Route path='/product' element={ <Product /> } />
-          <Route path='/about' element={ <About /> } />
-
-          <Route path="*" element={ <ErrorPage /> } />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='product' element={<Product />} />
+          <Route path='about' element={<About />} />
+          <Route path='category/:path' element={<Category />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
-        <Route path='/admin' element={ <Admin /> }>
-          <Route path='/admin/product' element={ <ProductAdmin /> } />
-          <Route path='/admin/order' element={ <Order /> } />
-          <Route path='/admin/employee' element={ <Employess /> } />
-          <Route path='/admin/sale' element={ <Sales /> } />
+
+        <Route path='/admin' element={<Admin />}>
+          <Route path='/admin/product' element={<ProductAdmin />} />
+          <Route path='/admin/order' element={<Order />} />
+          <Route path='/admin/employee' element={<Employess />} />
+          <Route path='/admin/sale' element={<Sales />} />
         </Route>
       </Routes>
 

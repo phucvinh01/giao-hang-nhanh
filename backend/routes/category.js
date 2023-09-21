@@ -1,4 +1,5 @@
 const categoryController = require('../controllers/categoryController')
+const productController = require('../controllers/productController')
 
 const router = require("express").Router();
 
@@ -9,13 +10,7 @@ router.post("/", categoryController.create);
 router.get("/", categoryController.getAll);
 
 //GET ONE
-router.get("/:id", categoryController.getById);
-
-//UPDATE 
-router.put("/:id", categoryController.updateCaterogy);
-
-//DELETE 
-router.delete("/:id", categoryController.deleteCaterogy);
+router.get("/:category", productController.getByCategory);
 
 
 module.exports = router;

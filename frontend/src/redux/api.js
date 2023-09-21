@@ -1,7 +1,7 @@
 import axios from '../axios/Axios'
 import { loginFailed, loginStart, loginSuccess, logoutFailed, logoutStart, logoutSuccess } from './authSlice'
 import { getProductFailed, getProductStart, getProductSuccess } from './proSlice'
-import { getProducts } from '../axios/ProductRequest'
+import { getProductByCategory, getProducts } from '../axios/ProductRequest'
 
 export const login = async (user, dispatch, navigate) => {
     dispatch(loginStart());

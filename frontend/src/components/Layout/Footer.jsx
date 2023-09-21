@@ -7,14 +7,14 @@ const Footer = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-lg-3 col-md-6 col-sm-12 footer-col'>
-            <img src='https://image.hsv-tech.io/300x0/bbx/common/50a26167-9341-4be8-8aba-9682d3b4a916.webp' width={ 200 } className='mb-3'></img>
+            <img src='https://image.hsv-tech.io/300x0/bbx/common/50a26167-9341-4be8-8aba-9682d3b4a916.webp' width={200} className='mb-3'></img>
             <div className='footer-social mb-5 d-flex gap-3'>
               <i className="fa-brands fa-facebook fs-5"></i>
               <i className="fa-brands fa-tiktok fs-5"></i>
               <i className="fa-brands fa-instagram fs-5"></i>
             </div>
             <p className='p-0 mb-3'><strong>Việt Nam</strong></p>
-            <img src='https://beautybox.com.vn/images/verified.png' width={ 120 } className='p-0'></img>
+            <img src='https://beautybox.com.vn/images/verified.png' width={120} className='p-0'></img>
           </div>
           <div className='col-lg-2 col-md-6 col-sm-12 footer-col'>
             <h5>VỀ BEAUTY BOX</h5>

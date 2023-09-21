@@ -1,4 +1,5 @@
 const { Category } = require("../model/categoryModel");
+const { Product } = require("../model/productModel");
 
 
 const categoryController = {
@@ -23,35 +24,16 @@ const categoryController = {
     },
 
     //get by id
-    getById: async (req, res) => {
+    getByPath: async (req, res) => {
         try {
-            const categorys = await Caterogy.findById(req.params.id);
-            res.status(200).json(categorys);
-        } catch (err) {
+            const products = Product.find({ "category": Category.findOne({ "path": req.params.path }) })
+            res.status(200).json(products)
+        }
+        catch (err) {
             res.status(500).json(err);
         }
     },
 
-    //UPDATE
-    updateCaterogy: async (req, res) => {
-        try {
-            const categorys = await Caterogy.findById(req.params.id);
-            await categorys.updateOne({ $set: req.body });
-            res.status(200).json("Updated successfully!");
-        } catch (err) {
-            res.status(500).json(err);
-        }
-    },
-
-    //DELETE Caterogy
-    deleteCaterogy: async (req, res) => {
-        try {
-            await Caterogy.findByIdAndDelete(req.params.id);
-            res.status(200).json({ "success": true });
-        } catch (err) {
-            res.status(500).json({ "success": false });
-        }
-    },
 };
 
 module.exports = categoryController;

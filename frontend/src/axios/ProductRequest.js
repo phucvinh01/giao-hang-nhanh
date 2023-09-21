@@ -13,5 +13,14 @@ const deleteProduct = (id) => {
 
 }
 
+const getProductByCategory = (path) => {
+    return Axios.get(`/v1/category/${path}`)
 
-export { getProducts, insertProduct, deleteProduct }
+}
+
+const getListNewProduct = () => {
+    return Axios.get('/v1/product/${10}')
+}
+
+
+export { getProducts, insertProduct, deleteProduct, getProductByCategory, getListNewProduct }

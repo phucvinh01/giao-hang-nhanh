@@ -11,6 +11,10 @@ router.get("/", productController.getAll);
 //GET ONE
 router.get("/:id", productController.getById);
 
+//GET NEW 
+
+router.get("/offset", productController.getOffsetNew);
+
 //UPDATE 
 router.put("/:id", productController.updateProduct);
 
