@@ -9,6 +9,9 @@ import { getProductList } from '../../../redux/api'
 import { useDispatch, useSelector } from 'react-redux'
 const PopupCreate = () => {
 
+    const categories = useSelector((state) => state.category.category.data);
+    const brands = useSelector((state) => state.brand.brand.data);
+
     const { TextArea } = Input;
     const id = useId();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +31,6 @@ const PopupCreate = () => {
         if (isModalOpen) {
             popup();
         }
-        return () => popup();
     }, [isModalOpen]);
 
     const showModal = () => {
@@ -45,6 +47,10 @@ const PopupCreate = () => {
         setCategory(value)
     }
 
+    const onChangeBrand = (value) => {
+        setBrand(value)
+    }
+
     const handleClick = async () => {
         setLoading(true)
         let res = await cloudinary(image)
@@ -57,7 +63,6 @@ const PopupCreate = () => {
                 brand: brand,
                 category: category,
             })
-            console.log(result);
             if (result) {
                 toast.success("Insert successful....")
                 handleCancel();
@@ -74,117 +79,120 @@ const PopupCreate = () => {
         <>
             <button
                 className='btn btn-info'
-                onClick={ showModal }>
+                onClick={showModal}>
                 <i className='fa-solid fa-circle-plus'></i>
                 <em className='mx-1'>Create</em>
             </button>
             <Modal
-                width={ 800 }
                 title='Create'
-                open={ isModalOpen }
-                footer={ null }
-                onOk={ handleOk }
-                onCancel={ handleCancel }
-                className='popup'>
+                open={isModalOpen}
+                footer={null}
+                onOk={handleOk}
+                onCancel={handleCancel}>
                 <hr></hr>
                 <div className='row g-2'>
                     <div className='col-lg-4 col-md-12 col-sm-12'>
                         <div className='mb-3'>
                             <label
-                                htmlFor={ id + '-name' }
+                                htmlFor={id + '-name'}
                                 className='form-label fw-bolder'>
                                 Name
                             </label>
                             <input
-                                onChange={ (e) => setName(e.target.value) }
+                                onChange={(e) => setName(e.target.value)}
                                 type='text'
                                 className='form-control'
-                                id={ id + '-name' }></input>
+                                id={id + '-name'}></input>
                         </div>
                         <div className='mb-3'>
                             <label
-                                htmlFor={ id + '-price' }
+                                htmlFor={id + '-price'}
                                 className='form-label fw-bolder'>
                                 Price
                             </label>
                             <input
-                                onChange={ (e) => setPrice(e.target.value) }
+                                onChange={(e) => setPrice(e.target.value)}
                                 type='number'
                                 className='form-control'
-                                id={ id + '-price' }></input>
+                                id={id + '-price'}></input>
                         </div>
                         <div className='mb-3'>
                             <label
-                                htmlFor={ id + '-category' }
+                                htmlFor={id + '-category'}
                                 className='form-label fw-bolder'>
                                 Category
                             </label>
                             <Select
-                                onChange={ onChange }
+                                onChange={onChange}
                                 id='category'
-                                style={ {
+                                style={{
                                     width: '100%',
-                                } }
+                                }}
                                 allowClear
-                                options={ [
-                                    {
-                                        value: 'Chăm sóc cơ thể',
-                                        label: 'Chăm sóc cơ thể',
-                                    },
-                                    {
-                                        value: 'Chăm sóc da mặt',
-                                        label: 'Chăm sóc da mặt',
-                                    },
-                                    {
-                                        value: 'Trang điểm',
-                                        label: 'Trang điểm',
-                                    },
-                                    {
-                                        value: 'Phụ kiện',
-                                        label: 'Phụ kiện',
-                                    },
-                                ] }
+                                options={
+                                    categories.map((item) => {
+                                        return (
+                                            {
+                                                value: item.name,
+                                                key: item.name
+                                            }
+                                        )
+                                    })
+                                }
                             />
                         </div>
                     </div>
                     <div className='col-lg-4 col-md-12 col-sm-12'>
                         <div className='mb-3'>
                             <label
-                                htmlFor={ id + '-brand' }
+                                htmlFor={id + '-brand'}
                                 className='form-label fw-bolder'>
                                 Brand
                             </label>
-                            <input
-                                onChange={ (e) => setBrand(e.target.value) }
-                                type='text'
-                                className='form-control'
-                                id={ id + '-brand' }></input>
+                            <Select
+                                onChange={onChangeBrand}
+                                id='brand'
+                                style={{
+                                    width: '100%',
+                                }}
+                                allowClear
+                                options={
+                                    brands.map((item) => {
+                                        return (
+                                            {
+                                                value: item.name,
+                                                key: item.name
+                                            }
+                                        )
+                                    })
+                                }
+                            />
                         </div>
                         <div className='mb-3'>
                             <label
-                                htmlFor={ id + '-description' }
+                                htmlFor={id + '-description'}
                                 className='form-label fw-bolder'>
                                 Description
                             </label>
                             <TextArea
-                                onChange={ (e) => setDescription(e.target.value) }
-                                style={ {
-                                    height: 130,
+                                onChange={(e) => setDescription(e.target.value)}
+                                style={{
+                                    height: 140,
                                     resize: 'none',
-                                } }
+                                }}
                                 type='text'
                                 className='form-control'
-                                id={ id + '-description' }></TextArea>
+                                id={id + '-description'}></TextArea>
                         </div>
                     </div>
                     <div className='col-lg-4 col-md-12 col-sm-12'>
                         <div className='p-0'>
-                            <Upload setImage={ setImage } />
+                            <Upload setImage={setImage} />
                         </div>
                     </div>
                 </div>
                 <div className='d-flex justify-content-end'>
-                    <button disabled={ loading ? true : false } className='btn btn-dark' onClick={ handleClick }>{ loading ? <Spin></Spin> : <>Create</> } </button>
+                    <button disabled={loading ? true : false} className='btn btn-dark' onClick={handleClick}>{loading ? <Spin></Spin> : <>Create</>} </button>
                 </div>
             </Modal>
         </>

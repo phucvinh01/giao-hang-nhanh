@@ -4,18 +4,7 @@ import { getBrand } from '../../axios/BrandRequest';
 import './brandSilder.scss'
 const BrandSlider = () => {
 
-    const [brands, setBrands] = useState([]);
-
-    const getBrands = async () => {
-        let res = await getBrand();
-        if (res) {
-            setBrands(res);
-        }
-    }
-
-    useEffect(() => {
-        getBrands()
-    }, [])
+    const brands = useSelector((state) => state.brand.brand.data);
 
     const settings = {
         infinite: false,
@@ -30,9 +19,9 @@ const BrandSlider = () => {
             <div className='brand-slide'>
                 <Slider {...settings}>
                     {
-                        brands?.length > 0 && brands.map((item) => {
+                        brands?.length > 0 && brands.map((item, index) => {
                             return (
-                                <div className='slide-brand-item'>
+                                <div key={index} className='slide-brand-item'>
                                     <img src={item.logo}></img>
                                 </div>
                             )

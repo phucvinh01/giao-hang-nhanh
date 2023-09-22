@@ -2,6 +2,10 @@ import axios from '../axios/Axios'
 import { loginFailed, loginStart, loginSuccess, logoutFailed, logoutStart, logoutSuccess } from './authSlice'
 import { getProductFailed, getProductStart, getProductSuccess } from './proSlice'
 import { getProductByCategory, getProducts } from '../axios/ProductRequest'
+import { getCategoryFailed, getCategoryStart, getCategorySuccess } from './cateSlice'
+import { getCategory } from '../axios/CategoryRequest'
+import { getBrandFailed, getBrandStart, getBrandSuccess } from './brandSlice'
+import { getBrand } from '../axios/BrandRequest'
 
 export const login = async (user, dispatch, navigate) => {
     dispatch(loginStart());
@@ -41,5 +45,27 @@ export const getProductList = async (dispatch) => {
     }
     catch (err) {
         dispatch(getProductFailed())
+    }
+}
+
+export const getCategoryList = async (dispatch) => {
+    dispatch(getCategoryStart());
+    try {
+        const res = await getCategory()
+        dispatch(getCategorySuccess(res))
+    }
+    catch (err) {
+        dispatch(getCategoryFailed())
+    }
+}
+
+export const getBrandList = async (dispatch) => {
+    dispatch(getBrandStart());
+    try {
+        const res = await getBrand()
+        dispatch(getBrandSuccess(res))
+    }
+    catch (err) {
+        dispatch(getBrandFailed())
     }
 }

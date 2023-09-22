@@ -2,7 +2,7 @@ import React, { useState, useId, useRef } from 'react';
 import { Button, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
-import './register.css'
+import '../LoginPopup/login.scss'
 import { register } from '../../axios/AuthRequest';
 import { toast } from 'react-toastify';
 
@@ -59,15 +59,15 @@ const RegisterPopup = () => {
     return (
         <>
             <button
-                onClick={ showModal }
+                onClick={showModal}
                 className='login-btn__register' >
                 Register
             </button>
             <Modal
-                open={ isModalOpen }
-                footer={ null }
-                onOk={ handleOk }
-                onCancel={ handleCancel }>
+                open={isModalOpen}
+                footer={null}
+                onOk={handleOk}
+                onCancel={handleCancel}>
                 <div className='login-content'>
                     <img src='https://i.pinimg.com/564x/85/85/f2/8585f2abc062ac1383bfc210a10bbda1.jpg'></img>
                     <h3>JOIN WITH US!</h3>
@@ -77,48 +77,48 @@ const RegisterPopup = () => {
                         <input
                             required
                             type='text'
-                            id={ id + '-Username' }
+                            id={id + '-Username'}
                             placeholder='Username'
-                            onChange={ (e) => setUsername(e.target.value) }></input>
+                            onChange={(e) => setUsername(e.target.value)}></input>
                     </div>
                     <div className='mb-3'>
                         <input
-                            ref={ emailRef }
+                            ref={emailRef}
                             required
                             type='email'
-                            id={ id + '-email' }
+                            id={id + '-email'}
                             placeholder='Email'
-                            onChange={ (e) => setEmail(e.target.value) }></input>
+                            onChange={(e) => setEmail(e.target.value)}></input>
                         {
-                            errorEmail && <p className='text-danger'>{ errorEmail }</p>
+                            errorEmail && <p className='text-danger'>{errorEmail}</p>
                         }
                     </div>
                     <div className='mb-3'>
                         <input
                             required
                             type='password'
-                            id={ id + '-password' }
+                            id={id + '-password'}
                             placeholder='Password'
-                            onChange={ (e) => setPassword(e.target.value) }
+                            onChange={(e) => setPassword(e.target.value)}
                         ></input>
                     </div>
                     <div className='mb-3'>
                         <input
-                            ref={ inputRef }
+                            ref={inputRef}
                             required
                             type='password'
-                            id={ id + '-password' }
+                            id={id + '-password'}
                             placeholder='Confrim password'
-                            onChange={ (e) => setComfrim(e.target.value) }
+                            onChange={(e) => setComfrim(e.target.value)}
                         ></input>
                         {
-                            error && <p className='text-danger'>{ error }</p>
+                            error && <p className='text-danger'>{error}</p>
                         }
                     </div>
 
                 </div>
                 <div className='mb-4'>
-                    <button className='login-btn__register' onClick={ handleSubmit }>
+                    <button className='login-btn__register' onClick={handleSubmit}>
                         Register
                     </button>
                 </div>

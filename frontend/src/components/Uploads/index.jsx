@@ -3,7 +3,7 @@ import './Uploads.css'
 function Upload(props) {
     const [error, setErrors] = useState(null);
     const [preview, setPreview] = useState(null);
-    const { setImage } = props
+    const { setImage, value } = props
 
     useEffect(() => {
         return () => {
@@ -16,11 +16,17 @@ function Upload(props) {
         setPreview(pr)
     }
 
+    useEffect(() => {
+        if (value) {
+            setPreview(value)
+            setImage(value)
+        }
+    }, [value])
+
 
     const handleUpload = (file, type) => {
         if (type == "image/jpeg" || type == "image/png") {
             handlePreview(file)
-            console.log(file);
             setImage(file)
             setErrors(null)
         }
@@ -33,16 +39,16 @@ function Upload(props) {
     return (
         <>
 
-            <div style={ { height: "232px" } }>
-                { error && <><p>{ error }</p></> }
-                { preview && <img id='imgUpload' className='rounded-2 z-3 position-absolute' style={ { height: "232px", width: "210px" } } src={ preview } /> }
+            <div style={{ height: "232px" }}>
+                {error && <><p>{error}</p></>}
+                {preview && <img id='imgUpload' className='rounded-2 z-3 position-absolute' style={{ height: "232px", width: "210px" }} src={preview} />}
             </div>
             <input id='inputFile' type="file" className='w-100'
-                onChange={ (event) => {
+                onChange={(event) => {
                     // setImage(event.target.files[0])
                     handleUpload(event.target.files[0], event.target.files[0].type)
 
-                } }
+                }}
 
             />
 

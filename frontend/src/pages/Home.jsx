@@ -1,18 +1,38 @@
 import React from 'react'
-import SearchBox from '../components/Searchbox'
-import Slide from '../components/Slider'
-import BrandSlider from '../components/BrandSlider'
-import SlideNewProduct from '../components/SlideNewProduct'
-
+import BannerSlide from '../components/BannerSlide'
+import BrandSlide from '../components/BrandSlide'
+import SlideProduct from '../components/SlideProduct'
+import Slider from "react-slick";
+import Banner2 from '../components/BannerSlide-2';
+import { useSelector } from 'react-redux';
+import { Card, Col, Row } from 'antd';
+import './Home.scss'
 const Home = () => {
+
+    const banner1 = [
+        "https://image.hsv-tech.io/1920x640/bbx/common/3785937c-40ed-4127-b8b4-f41f8310d429.webp",
+        "https://image.hsv-tech.io/1920x640/bbx/common/cfe921b9-6e4b-440e-81a7-6e2165f02107.webp",
+        "https://image.hsv-tech.io/1920x640/bbx/common/2730cf2c-fe48-460f-b719-cc6ea97895b0.webp"
+    ]
+
+    const banner2 = [
+        "https://image.hsv-tech.io/1920x914/bbx/common/b95bad0e-038d-4903-a440-db162b4f557a.webp",
+        "https://image.hsv-tech.io/1920x914/bbx/common/ca0519fb-ecbc-4f94-8ae7-00ed1fb51caf.webp",
+        "https://image.hsv-tech.io/1920x914/bbx/common/cf976481-2b36-437a-bb61-9220c12c7c7e.webp"
+    ]
+
+    const cate = useSelector((state) => state.category.category.data);
+
+    const categories = cate.slice(4);
+
     return (
         <>
             <main className='container-fluid px-5 mt-3'>
                 {/* banener */}
-                <section className='mb-3'>
+                <section>
                     <div className='row'>
                         <div className='col-8'>
-                            <Slide />
+                            <BannerSlide />
                         </div>
                         <div className='col-4'>
                             <div className='mb-2 rounded'>
@@ -26,12 +46,63 @@ const Home = () => {
                 </section>
                 {/* brand */}
                 <section className='mb-4'>
-                    <BrandSlider />
+                    <BrandSlide />
                 </section>
 
                 <section>
-                    <h2 className='text-center mb-3'>TOP SẢN PHẨM MỚI</h2>
-                    <SlideNewProduct />
+                    <h3 className='text-center mb-3'>TOP SẢN PHẨM MỚI</h3>
+                    <SlideProduct />
+                </section>
+                <section>
+                    <div className='silde-discount-banner'>
+                        <Banner2 data={banner1} />
+                    </div>
+                </section>
+
+                <section>
+                    <h3 className='text-center'>DANH MỤC NỔI BẬT</h3>
+                    <Row>
+                        {
+                            categories && categories.length > 0 && categories.map((item, index) => {
+                                return (
+                                    <Col span={3}>
+                                        <Card
+                                            hoverable
+                                            style={{
+                                                width: 130,
+                                                padding: 10,
+                                                marginBottom: 10
+                                            }}
+                                            cover={<img alt="example" src={item.logo} />}
+                                        >
+                                            <p className="d-block" style={{ fontSize: 12, height: 20 }}>{item.name}</p>
+                                        </Card>
+                                    </Col>
+
+                                )
+                            })
+                        }
+                    </Row>
+                </section>
+                <section>
+                    <div className='silde-trending-banner'>
+                        <Banner2 data={banner2} />
+                    </div>
+                </section>
+
+                <section>
+                    <div className='box-gmail row'>
+                        <div className='col-6'>
+                            <h4>NHẬN BẢN TIN LÀM ĐẸP</h4>
+                            <p>Đừng bỏ lỡ hàng ngàn sản phẩm và chương trình siêu hấp dẫn</p>
+                        </div>
+                        <div className='col-6'>
+                            <div className='box-gmail-input mx-auto'>
+                                <input placeholder='Điền email của bạn' type='email' autoComplete='null'></input>
+                                <button>THEO DÕI</button>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </main>
         </>

@@ -12,10 +12,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Employess from './pages/Admin/pages/Employess'
 import Sales from './pages/Admin/pages/Sales'
-import { getProductList } from './redux/api'
+import { getBrandList, getCategoryList, getProductList } from './redux/api'
 import { useDispatch, useSelector } from 'react-redux'
 import About from './pages/About'
 import Category from './pages/Category'
+import LoginPopup from './components/LoginPopup'
 function App() {
 
   const dispatch = useDispatch()
@@ -29,7 +30,9 @@ function App() {
 
   useEffect(() => {
     getProductList(dispatch)
-  }, [dispatch])
+    getCategoryList(dispatch)
+    getBrandList(dispatch)
+  }, [])
 
   return (
     <>

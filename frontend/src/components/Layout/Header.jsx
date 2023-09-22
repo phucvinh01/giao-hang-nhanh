@@ -9,8 +9,8 @@ import SearchBox from '../Searchbox';
 import { getCategory } from '../../axios/CategoryRequest'
 const Header = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
+    const cate = useSelector((state) => state.category.category.data);
     const [users, setUsers] = useState('');
-    const [categories, setCategories] = useState([]);
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const accessToken = user?.accessToken;
@@ -20,16 +20,8 @@ const Header = () => {
         setUsers(user)
     }, [users])
 
-    useEffect(() => {
-        getCategories();
-    }, [])
 
-    const getCategories = async () => {
-        let res = await getCategory();
-        if (res) {
-            setCategories(res)
-        }
-    }
+    const categories = cate.slice(0, 4)
 
 
     const handleLogOut = () => {
@@ -97,10 +89,10 @@ const Header = () => {
                                         <NavLink className="btn border px-4 btn-category" to={'/brand'}>Brand</NavLink>
                                     </li>
                                     {
-                                        categories && categories.length > 0 && categories.map((item) => {
+                                        categories && categories.length > 0 && categories.map((item, index) => {
                                             return (
                                                 <>
-                                                    <li className="nav-item px-3">
+                                                    <li className="nav-item px-3" key={index}>
                                                         <NavLink className="btn border px-4 btn-category" to={'/category/' + item.path}>{item.name}</NavLink>
                                                     </li>
                                                 </>

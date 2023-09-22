@@ -1,43 +1,50 @@
-.ant-modal-content{
+.popup-login {
+  .ant-modal-mask {
+    z-index: 1020 !important;
+  }
+  .ant-modal-wrap {
+    z-index: 1100 !important;
+  }
+  .ant-modal-content {
     width: 400px !important;
     margin: 0 auto !important;
     padding: 60px !important;
     border-radius: 0 !important;
-}
-.login-content img{
+  }
+  .login-content img {
     width: 80px;
-}
-.login-content h3 {
+  }
+  .login-content h3 {
     font-size: 36px;
     font-weight: 650;
-}
-.login-from input {
+  }
+  .login-from input {
     width: 100%;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid gray;
     padding: 0;
     color: black;
-}
-.login-from input:focus {
+  }
+  .login-from input:focus {
     outline: 0;
     box-shadow: none;
     border-color: #333;
     border-width: 3px;
-}
-.login-btn__submit{
-     border-radius: 20px;
+  }
+  .login-btn__submit {
+    border-radius: 20px;
     width: 100%;
     background-color: black;
     color: white;
     padding: 5px 0px;
-}
-.login-btn__register{
-     border-radius: 20px;
+  }
+  .login-btn__register {
+    border-radius: 20px;
     width: 100%;
     background-color: whitesmoke;
     border-color: white;
     color: black;
     padding: 5px 0px;
+  }
 }
-
