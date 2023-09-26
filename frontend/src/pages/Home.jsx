@@ -23,6 +23,7 @@ const Home = () => {
 
     const cate = useSelector((state) => state.category.category.data);
 
+
     const categories = cate.slice(4);
 
     return (

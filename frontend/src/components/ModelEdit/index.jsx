@@ -6,6 +6,8 @@ import cloudinary from '../../util/Cloudnary';
 import Axios from '../../axios/Axios';
 import { toast } from 'react-toastify';
 import { getProductList } from '../../redux/api';
+import './modalEdit.scss'
+
 
 const ModalEdit = (props) => {
     const { handleCancel, openEdit, state } = props;
@@ -75,9 +77,11 @@ const ModalEdit = (props) => {
                 width={1000}
                 open={openEdit}
                 onCancel={() => handleCancel('EDIT')}
-                footer={false}>
+                footer={false}
+                className='modal-edit'
+            >
                 <hr></hr>
-                <div className='row g-2'>
+                <div className='row g-2 ' >
                     <div className='col-lg-4 col-md-12 col-sm-12'>
                         <div className='mb-3'>
                             <label

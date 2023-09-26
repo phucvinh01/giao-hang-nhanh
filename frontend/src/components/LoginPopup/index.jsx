@@ -33,13 +33,14 @@ const LoginPopup = () => {
 
     return (
         <>
+
+            <button
+                className='btn btn-outline-dark'
+                onClick={showModal}>
+                <i className='fa-solid fa-circle-user'></i>
+                <span className='mx-1 '>Login</span>
+            </button>
             <div className='popup-login'>
-                <button
-                    className='btn btn-outline-dark'
-                    onClick={showModal}>
-                    <i className='fa-solid fa-circle-user'></i>
-                    <span className='mx-1 '>Login</span>
-                </button>
                 <Modal
                     open={isModalOpen}
                     footer={null}

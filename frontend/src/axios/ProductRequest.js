@@ -4,6 +4,10 @@ const getProducts = (user) => {
     return Axios.get('/v1/product/')
 }
 
+const getOneProducts = (id) => {
+    return Axios.get(`/v1/product/${id}`)
+}
+
 const insertProduct = (product) => {
     return Axios.post('/v1/product/', product)
 }
@@ -23,4 +27,4 @@ const getListNewProduct = () => {
 }
 
 
-export { getProducts, insertProduct, deleteProduct, getProductByCategory, getListNewProduct }
+export { getProducts, insertProduct, deleteProduct, getProductByCategory, getListNewProduct, getOneProducts }

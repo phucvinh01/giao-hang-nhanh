@@ -12,19 +12,27 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Employess from './pages/Admin/pages/Employess'
 import Sales from './pages/Admin/pages/Sales'
-import { getBrandList, getCategoryList, getProductList } from './redux/api'
+import { getBrandList, getCart, getCategoryList, getProductList } from './redux/api'
 import { useDispatch, useSelector } from 'react-redux'
 import About from './pages/About'
 import Category from './pages/Category'
-import LoginPopup from './components/LoginPopup'
+import Cart from './pages/Cart'
 function App() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const user = useSelector((state) => state.auth.login.currentUser);
+  const cart = useSelector((state) => state.cart.cart.data);
+  console.log(cart);
   useEffect(() => {
     if (user?.role === 1) {
       navigate('/admin')
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (user) {
+      getCart(user._id, dispatch)
     }
   }, [user])
 
@@ -54,6 +62,7 @@ function App() {
           <Route path='product' element={<Product />} />
           <Route path='about' element={<About />} />
           <Route path='category/:path' element={<Category />} />
+          <Route path='cart' element={<Cart />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
 

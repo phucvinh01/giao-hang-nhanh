@@ -35,24 +35,33 @@
   }
 }
 
-.header{
-.btn-category {
-  height: 35px;
-  padding: 0px 20px;
-  align-items: center;
-  background-color: #fff;
-  border-color: #efefef;
-  border-radius: 8px;
-  border-style: solid;
-  border-width: 1px;
-  display: flex;
-  font-size: 16px;
-  justify-content: center;
-  line-height: 22.001px;
-  padding: 0px 20px;
-  text-align: center;
+.header {
+  .btn-category {
+    height: 35px;
+    padding: 0px 20px;
+    align-items: center;
+    background-color: #fff;
+    border-color: #efefef;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 1px;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    line-height: 22.001px;
+    padding: 0px 20px;
+    text-align: center;
+  }
+
+
+  .btn-cart {
+    color: black;
+    border: none;
+    padding: 0 10px;
+    background-color: transparent;
+
+    i {
+      font-size: 26px;
+    }
+  }
 }
-
-}
-
-

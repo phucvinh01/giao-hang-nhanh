@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Slider from "react-slick";
 import { getBrand } from '../../axios/BrandRequest';
 import './brandSilder.scss'
+import { useSelector } from 'react-redux';
 const BrandSlider = () => {
 
     const brands = useSelector((state) => state.brand.brand.data);

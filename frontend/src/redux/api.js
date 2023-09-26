@@ -1,11 +1,14 @@
 import axios from '../axios/Axios'
 import { loginFailed, loginStart, loginSuccess, logoutFailed, logoutStart, logoutSuccess } from './authSlice'
 import { getProductFailed, getProductStart, getProductSuccess } from './proSlice'
-import { getProductByCategory, getProducts } from '../axios/ProductRequest'
+import { getOneProducts, getProductByCategory, getProducts } from '../axios/ProductRequest'
 import { getCategoryFailed, getCategoryStart, getCategorySuccess } from './cateSlice'
 import { getCategory } from '../axios/CategoryRequest'
 import { getBrandFailed, getBrandStart, getBrandSuccess } from './brandSlice'
 import { getBrand } from '../axios/BrandRequest'
+import { addToCartFailed, addToCartStart, addToCartSuccess, getCartFailed, getCartStart, getCartSuccess } from './cartSlice'
+import { Add, Get } from '../axios/CartRequest'
+import { Axios } from 'axios'
 
 export const login = async (user, dispatch, navigate) => {
     dispatch(loginStart());
@@ -67,5 +70,35 @@ export const getBrandList = async (dispatch) => {
     }
     catch (err) {
         dispatch(getBrandFailed())
+    }
+}
+
+
+export const addToCart = async (productId, userId, quantity, dispatch) => {
+    dispatch(addToCartStart());
+    try {
+        const res = await Add(productId, userId, quantity)
+        dispatch(addToCartSuccess(res))
+    }
+    catch (err) {
+        dispatch(addToCartFailed())
+    }
+}
+
+
+export const getCart = async (userId, dispatch) => {
+    dispatch(getCartStart());
+    try {
+        const res = await Get(userId)
+        console.log(res);
+        if (res.status) {
+            dispatch(getCartSuccess(res.cart))
+        }
+        else {
+            dispatch(getCartFailed())
+        }
+    }
+    catch (err) {
+        dispatch(getCartFailed())
     }
 }
