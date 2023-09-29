@@ -26,9 +26,9 @@ const SideBar = (props) => {
                         </button>
                         <Link
                             className='navbar-brand'
-                            to={ '/admin' }>
+                            to={'/admin'}>
                             <img
-                                src='https://i.pinimg.com/564x/85/85/f2/8585f2abc062ac1383bfc210a10bbda1.jpg'
+                                src='https://image.hsv-tech.io/300x0/bbx/common/50a26167-9341-4be8-8aba-9682d3b4a916.webp'
                                 height='40'
                                 alt=''
                                 loading='lazy'
@@ -111,7 +111,7 @@ const SideBar = (props) => {
                                     <li>
                                         <button
                                             className='btn'
-                                            onClick={ handleLogOut }>
+                                            onClick={handleLogOut}>
                                             Log out
                                         </button>
                                     </li>

@@ -31,23 +31,20 @@ const cartSlice = createSlice({
         },
         addToCartFailed: (state) => {
             state.cart.isLoading = false;
+            state.cart.data = null;
             state.cart.error = true;
         },
-        incrementQuantityStart: (state) => {
+        decrementQuantityStart: (state) => {
             state.cart.isLoading = true
         },
-        incrementQuantitySuccess: (state, action) => {
+        decrementQuantitySuccess: (state, action) => {
             state.cart.isLoading = false;
             state.cart.data = action.payload;
         },
-        incrementQuantityFailed: (state) => {
+        decrementQuantityFailed: (state) => {
             state.cart.isLoading = false;
             state.cart.error = true;
         },
-        decrementQuantity: (state, action) => {
-            state.cart.cart = action.payload;
-        },
-
         removeItemStart: (state) => {
             state.cart.isLoading = true
         },
@@ -68,10 +65,9 @@ export const {
     addToCartStart,
     addToCartSuccess,
     addToCartFailed,
-    incrementQuantityStart,
-    incrementQuantitySuccess,
-    incrementQuantityFailed,
-    decrementQuantity,
+    decrementQuantityStart,
+    decrementQuantitySuccess,
+    decrementQuantityFailed,
     removeItemStart,
     removeItemSuccess,
     removeItemFailed,

@@ -6,8 +6,8 @@ import { getCategoryFailed, getCategoryStart, getCategorySuccess } from './cateS
 import { getCategory } from '../axios/CategoryRequest'
 import { getBrandFailed, getBrandStart, getBrandSuccess } from './brandSlice'
 import { getBrand } from '../axios/BrandRequest'
-import { addToCartFailed, addToCartStart, addToCartSuccess, getCartFailed, getCartStart, getCartSuccess } from './cartSlice'
-import { Add, Get } from '../axios/CartRequest'
+import { addToCartFailed, addToCartStart, addToCartSuccess, decrementQuantityFailed, decrementQuantityStart, decrementQuantitySuccess, getCartFailed, getCartStart, getCartSuccess } from './cartSlice'
+import { Add, Decrement, Get } from '../axios/CartRequest'
 import { Axios } from 'axios'
 
 export const login = async (user, dispatch, navigate) => {
@@ -31,7 +31,7 @@ export const logout = async (dispatch, id, navigate, token) => {
     dispatch(logoutStart());
     try {
         const res = await axios.post('/v1/auth/logout')
-        dispatch(logoutSuccess())
+        dispatch(logoutSuccess(res))
         navigate('/')
     }
     catch (err) {
@@ -73,24 +73,10 @@ export const getBrandList = async (dispatch) => {
     }
 }
 
-
-export const addToCart = async (productId, userId, quantity, dispatch) => {
-    dispatch(addToCartStart());
-    try {
-        const res = await Add(productId, userId, quantity)
-        dispatch(addToCartSuccess(res))
-    }
-    catch (err) {
-        dispatch(addToCartFailed())
-    }
-}
-
-
 export const getCart = async (userId, dispatch) => {
     dispatch(getCartStart());
     try {
         const res = await Get(userId)
-        console.log(res);
         if (res.status) {
             dispatch(getCartSuccess(res.cart))
         }
@@ -102,3 +88,34 @@ export const getCart = async (userId, dispatch) => {
         dispatch(getCartFailed())
     }
 }
+
+export const addToCart = async (productId, userId, quantity, dispatch) => {
+    dispatch(addToCartStart());
+    try {
+        const res = await Add(productId, userId, quantity)
+        if (res) {
+            dispatch(addToCartSuccess(res.data))
+        }
+        dispatch(addToCartFailed())
+    }
+    catch (err) {
+        dispatch(addToCartFailed())
+    }
+}
+
+export const decreaseQuantity = async (productId, userId, dispatch) => {
+    dispatch(decrementQuantityStart());
+    try {
+        const res = await Decrement(productId, userId)
+        if (res) {
+            console.log(res);
+            dispatch(decrementQuantitySuccess(res.data))
+        }
+        dispatch(decrementQuantityFailed())
+    }
+    catch (err) {
+        dispatch(decrementQuantityFailed())
+    }
+}
+
+

@@ -19,9 +19,9 @@ const ModalEdit = (props) => {
     const idd = useId();
     const [_id, setId] = useState('');
     const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('');
-    const [brand, setBrand] = useState('');
+    const [price, setPrice] = useState(0);
+    const [category, setCategory] = useState();
+    const [brand, setBrand] = useState();
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
     const [loading, setLoading] = useState(false);

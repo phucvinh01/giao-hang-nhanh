@@ -7,7 +7,13 @@
   );
   border: none;
   color: rgb(255, 255, 255) !important;
+
 }
+
+.sticky-top{
+  z-index: 990 !important;
+}
+
 .header-menu {
   padding: 4px 0px;
   display: flex;
@@ -65,3 +71,31 @@
     }
   }
 }
+
+@media only screen and (max-width: 600px) {
+ .bg-gradientt {
+    display: none;
+ }
+
+ .hidden-sm {
+  display: none;
+ }
+ .block-sm{
+  display: block;
+ }
+ 
+
+}
+
+/* CSS for tablets */
+@media only screen and (min-width: 600px) and (max-width: 960px) {
+ .breakpoint {
+    background-color: blue;
+ }
+}
+
+ 
+ 
+
+
+

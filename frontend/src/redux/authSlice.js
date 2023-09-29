@@ -29,7 +29,7 @@ const authSlice = createSlice({
         logoutStart: (state) => {
             state.logout.isLoading = true
         },
-        logoutSuccess: (state, action) => {
+        logoutSuccess: (state) => {
             state.logout.isLoading = false;
             state.login.currentUser = null;
         },

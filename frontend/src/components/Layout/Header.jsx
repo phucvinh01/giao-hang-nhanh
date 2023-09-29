@@ -8,6 +8,7 @@ import { logout } from '../../redux/api';
 import SearchBox from '../Searchbox';
 import { getCategory } from '../../axios/CategoryRequest';
 import DrawerCart from '../DrawerCart';
+import NavbarMobie from '../NavbarMobie';
 const Header = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const cate = useSelector((state) => state.category.category.data);
@@ -32,7 +33,7 @@ const Header = () => {
         setOpen(false);
     };
 
-    const categories = cate.slice(0, 4);
+    const categories = cate?.slice(0, 4);
 
     const handleLogOut = () => {
         logout(dispatch, id, navigate, accessToken);
@@ -60,8 +61,8 @@ const Header = () => {
                     <div className='menu-item'><small>Mua và nhận tại cửa hàng</small> </div>
                 </div>
             </div>
-            <header className='sticky-sm-top sticky-top header bg-white'>
-                <div className='container-fluid  px-5'>
+            <header className='sticky-sm-top sticky-top header bg-white mt-3'>
+                <div className='container-fluid'>
                     <div className='row pt-1'>
                         <div className='d-flex align-items-center justify-content-between'>
                             <div className=' col-lg-2 col-md-5 col-sm-5'>
@@ -69,10 +70,10 @@ const Header = () => {
                                     className='w-100'
                                     src='https://image.hsv-tech.io/300x0/bbx/common/50a26167-9341-4be8-8aba-9682d3b4a916.webp'></img>
                             </div>
-                            <div className='col-lg-6  navbar-reponsive'>
+                            <div className='col-lg-6 hidden-sm'>
                                 <SearchBox />
                             </div>
-                            <div className='col-lg-2'>
+                            <div className='col-lg-2 hidden-sm'>
                                 <div className='d-flex gap-0 justify-content-end gap-1'>
                                     {user ? (
                                         <Popover
@@ -98,6 +99,9 @@ const Header = () => {
                                     </Badge>
 
                                 </div>
+                            </div>
+                            <div className='col-2 d-lg-none block-sm'>
+                                <NavbarMobie />
                             </div>
                         </div>
                     </div>
@@ -155,6 +159,7 @@ const Header = () => {
                 onClose={onClose}
                 open={open}
             />
+
         </>
     );
 };

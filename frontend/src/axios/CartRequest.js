@@ -12,5 +12,13 @@ const Get = (userId) => {
     return Axios.get(`/v1/cart/${userId}`)
 }
 
+const Decrement = (productId, userId) => {
+    return Axios.put(`/v1/cart/`, { userId: userId, productId: productId })
+}
 
-export { Add, Get }
+const Delete = (productId) => {
+    return Axios.delete(`/v1/cart/`, { productId: productId })
+}
+
+
+export { Add, Get, Decrement, Delete }

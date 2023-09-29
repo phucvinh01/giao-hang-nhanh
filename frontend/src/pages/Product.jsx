@@ -20,7 +20,7 @@ const Product = () => {
                     <div className='col-2'>
 
                     </div>
-                    <div className='col-10'>
+                    <div className='col-md-10 col-sm-12'>
                         <Products products={products} user={user} />
                     </div>
 

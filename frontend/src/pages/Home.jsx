@@ -24,18 +24,18 @@ const Home = () => {
     const cate = useSelector((state) => state.category.category.data);
 
 
-    const categories = cate.slice(4);
+    const categories = cate?.slice(4);
 
     return (
         <>
-            <main className='container-fluid px-5 mt-3'>
+            <main className='container mt-3'>
                 {/* banener */}
                 <section>
                     <div className='row'>
-                        <div className='col-8'>
+                        <div className='col-lg-8 col-md-8 col-sm-12'>
                             <BannerSlide />
                         </div>
-                        <div className='col-4'>
+                        <div className='col-lg-4 col-md-4 col-sm-12'>
                             <div className='mb-2 rounded'>
                                 <img className='rounded w-100' src='https://image.hsv-tech.io/1920x0/bbx/common/63f285de-8b04-4ff7-b7ee-820cbd34db9a.webp' ></img>
                             </div>
@@ -60,9 +60,9 @@ const Home = () => {
                     </div>
                 </section>
 
-                <section>
+                <section className='hidden-sm'>
                     <h3 className='text-center'>DANH MỤC NỔI BẬT</h3>
-                    <Row>
+                    <Row className='d-sm-none'>
                         {
                             categories && categories.length > 0 && categories.map((item, index) => {
                                 return (
@@ -93,11 +93,11 @@ const Home = () => {
 
                 <section>
                     <div className='box-gmail row'>
-                        <div className='col-6'>
+                        <div className='col-lg-6 col-md-6 col-sm-12'>
                             <h4>NHẬN BẢN TIN LÀM ĐẸP</h4>
                             <p>Đừng bỏ lỡ hàng ngàn sản phẩm và chương trình siêu hấp dẫn</p>
                         </div>
-                        <div className='col-6'>
+                        <div className='col-lg-6 col-md-6 col-sm-12'>
                             <div className='box-gmail-input mx-auto'>
                                 <input placeholder='Điền email của bạn' type='email' autoComplete='null'></input>
                                 <button>THEO DÕI</button>

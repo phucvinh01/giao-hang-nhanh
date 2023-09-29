@@ -27,10 +27,11 @@ const Admin = () => {
     }
     return (
         <>
-            <SideBar handleLogOut={ handleLogOut }
-                user={ user }
-            />
-            <Outlet />
+            <main style={{ marginTop: "58px", minHeight: "100vh" }}>
+                <div className="container pt-4">
+                    Hiii
+                </div>
+            </main>
         </>
 
     )

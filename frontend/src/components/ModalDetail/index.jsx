@@ -1,18 +1,19 @@
-import { Modal, Radio, Rate } from 'antd'
+import { Modal, Radio, Rate, Spin } from 'antd'
 import React, { useState } from 'react'
 import './modaldetai.scss'
 import _ from 'lodash';
 import formatCurrency from '../../util/formatCurrency'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, getCart } from '../../redux/api';
+import { toast } from 'react-toastify';
 
 const ModalDetail = (props) => {
     const dispatch = useDispatch()
 
     const [quantity, setQuantity] = useState(1);
     const user = useSelector((state) => state.auth.login.currentUser);
-
-
+    const loading = useSelector((state) => state.cart.cart.isLoading);
+    const error = useSelector((state) => state.cart.cart.error);
     const { open, handleOk, onCancel, state } = props
 
     if (open)
@@ -20,7 +21,10 @@ const ModalDetail = (props) => {
 
     const handleAddToCart = () => {
         addToCart(state?._id, user?._id, quantity, dispatch)
-        getCart(user?._id, dispatch)
+        if (!error) {
+            toast.success("Thêm vào giỏ hàng thành công")
+            getCart(user?._id, dispatch)
+        }
         onCancel();
     }
 
@@ -52,8 +56,11 @@ const ModalDetail = (props) => {
                             <div>
                                 {
                                     user ? <button className='btn btn-dark p-2 mt-1' onClick={handleAddToCart}>
-                                        <i className="fa-solid fa-cart-plus mx-1"></i>
-                                        <span>Thêm vào giỏ hàng</span>
+                                        {
+                                            !loading ? <><i className="fa-solid fa-cart-plus mx-1"></i>
+                                                <span>Thêm vào giỏ hàng</span></> : <Spin />
+                                        }
+
                                     </button> : <p className='p-2 mt-1'>Hãy đăng nhập để thêm vào giỏ hàng</p>
                                 }
 

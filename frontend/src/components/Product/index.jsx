@@ -154,7 +154,7 @@ const Product = (props) => {
                             )}
                         </div>
                     </div>
-                    <button
+                    <button hidden={props?.user?.role === 1 ? true : false}
                         className='btn-quick'
                         onClick={() => handleShowDetail(props)}>
                         <span>XEM NHANH</span>

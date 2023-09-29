@@ -17,24 +17,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import About from './pages/About'
 import Category from './pages/Category'
 import Cart from './pages/Cart'
+import { addToCartFailed } from './redux/cartSlice'
+import LayoutAdmin from './pages/Admin/Layout'
 function App() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const user = useSelector((state) => state.auth.login.currentUser);
   const cart = useSelector((state) => state.cart.cart.data);
-  console.log(cart);
+
   useEffect(() => {
     if (user?.role === 1) {
-      navigate('/admin')
+      navigate('/admin/home')
+    }
+    if (user?.role !== 1) {
+      getCart(user?._id, dispatch)
+    }
+    if (!user && user?.role === 1) {
+      dispatch(addToCartFailed())
     }
   }, [user])
 
-  useEffect(() => {
-    if (user) {
-      getCart(user._id, dispatch)
-    }
-  }, [user])
 
   useEffect(() => {
     getProductList(dispatch)
@@ -66,7 +69,8 @@ function App() {
           <Route path="*" element={<ErrorPage />} />
         </Route>
 
-        <Route path='/admin' element={<Admin />}>
+        <Route path='/admin' element={<LayoutAdmin />}>
+          <Route path='/admin/home' element={<Admin />} />
           <Route path='/admin/product' element={<ProductAdmin />} />
           <Route path='/admin/order' element={<Order />} />
           <Route path='/admin/employee' element={<Employess />} />
