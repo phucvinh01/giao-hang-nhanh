@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Address = new Schema(
+const Address = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -32,18 +32,14 @@ const orderSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        cart: [
-            {
-                type: mongoose.Types.ObjectId,
-                ref: "Cart",
-            }
-        ],
+        cart: {
+            type: Object,
+        },
         status: {
             type: String,
-            required: true,
             default: "Đang chuẩn bị",
         },
-        shippingInfor: { Address },
+        shippingInfor: [Address],
     },
     { timestamps: true }
 

@@ -8,6 +8,9 @@ import formatCurrency from '../util/formatCurrency';
 import { useNavigate } from 'react-router-dom';
 const Checkout = (props) => {
     const cart = useSelector((state) => state.cart.cart.data);
+    const user = useSelector((state) => state.auth.login.currentUser);
+
+
     const id = useId();
     const navigate = useNavigate();
 
@@ -26,17 +29,42 @@ const Checkout = (props) => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [note, setNote] = useState("");
-    const [enable, setEnable] = useState(false)
+    const [enable, setEnable] = useState(true)
+
+
+    //fuction post api order
+
+    const handleOrder = async () => {
+        let address = detail + ', ' + nameWard + ', ' + nameDistrict + ', ' + nameCity
+        let res = await Axios.post('http://127.0.0.1:8000/v1/order/add-to-order', {
+            cart: cart.items,
+            userId: user._id,
+            shippingInfor: {
+                name: name,
+                phone: phone,
+                note: note,
+                address: address
+            },
+            totalPrice: cart.subTotal
+        })
+
+        let empty = await Axios.put('http://127.0.0.1:8000/v1/cart/empty', { userId: user._id })
+
+        if (res && empty) {
+            message.success("Order thành công, hàng đang được chuẩn bị!")
+            navigate('/me/order')
+        }
+    }
 
     function getValue(e) {
         return e.target.children[e.target.selectedIndex].getAttribute('data-name');
     }
 
-    // useEffect(() => {
-    //     if (isEmpty(nameCity) || isEmpty(nameDistrict) || isEmpty(nameWard) || isEmpty(name) || isEmpty(phone)) {
-    //         setEnable(true)
-    //     }
-    // }, [nameCity, nameDistrict, nameWard, name, phone])
+    useEffect(() => {
+        if (isEmpty(nameCity) || isEmpty(nameDistrict) || isEmpty(nameWard) || isEmpty(name) || isEmpty(phone)) {
+            setEnable(true)
+        }
+    }, [nameCity, nameDistrict, nameWard, name, phone])
 
     const getProvinces = async () => {
         let res = await ListProvinces();
@@ -77,6 +105,10 @@ const Checkout = (props) => {
     }, []);
 
     const next = () => {
+        if (isEmpty(nameCity) || isEmpty(nameDistrict) || isEmpty(nameWard) || isEmpty(name) || isEmpty(phone)) {
+            message.error("Missing infomation")
+            return
+        }
         setCurrent(current + 1);
     };
     const prev = () => {
@@ -94,7 +126,7 @@ const Checkout = (props) => {
                         <div className='form-control'>
                             <div className='row'>
                                 <div className='col-6'>
-                                    <form className='p-1'>
+                                    <div className='p-1'>
                                         <div className='mb-3'>
                                             <label
                                                 htmlFor={ id + '-provinces' }
@@ -192,10 +224,10 @@ const Checkout = (props) => {
                                                     className='form-label fw-bolder text-start'>
                                                     Số nhà, Ấp/Tên đường
                                                 </label>
-                                                <input className='form-control' type='text' id={ id + '-detail-address' } onChange={ (e) => setDetail(e.target.value) } />
+                                                <input value={ detail } className='form-control' type='text' id={ id + '-detail-address' } onChange={ (e) => setDetail(e.target.value) } />
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 <div className='col-6'>
                                     <div className='mb-3'>
@@ -204,7 +236,7 @@ const Checkout = (props) => {
                                             className='form-label fw-bolder text-start'>
                                             Họ Tên
                                         </label>
-                                        <input required onChange={ (e) => setName(e.target.value) } id={ id + '-name' } type='text' className='form-control' />
+                                        <input value={ name } required onChange={ (e) => setName(e.target.value) } id={ id + '-name' } type='text' className='form-control' />
                                     </div>
                                     <div className='mb-3'>
                                         <label
@@ -212,7 +244,7 @@ const Checkout = (props) => {
                                             className='form-label fw-bolder text-start'>
                                             Số điện thoại
                                         </label>
-                                        <input required onChange={ (e) => setPhone(e.target.value) } id={ id + '-phone' } type='tel' className='form-control' />
+                                        <input value={ phone } required onChange={ (e) => setPhone(e.target.value) } id={ id + '-phone' } type='tel' className='form-control' />
                                     </div>
                                     <div className='mb-3'>
                                         <label
@@ -220,7 +252,7 @@ const Checkout = (props) => {
                                             className='form-label fw-bolder text-start'>
                                             Ghi chú
                                         </label>
-                                        <textarea required onChange={ (e) => setNote(e.target.value) } id={ id + '-note' } className='form-control' />
+                                        <textarea value={ note } required onChange={ (e) => setNote(e.target.value) } id={ id + '-note' } className='form-control' />
                                     </div>
                                 </div>
                             </div>
@@ -275,6 +307,7 @@ const Checkout = (props) => {
     return (
         <>
             <div className='container px-5 mt-5'>
+                <button className='btn btn-dark mb-5' onClick={ () => navigate('/') }>Back</button>
                 <Steps
                     current={ current }
                     items={ items }
@@ -286,13 +319,13 @@ const Checkout = (props) => {
                     } }>
                     { current < steps.length - 1 && (
                         <div>
-                            <Button
-
-                                disabled={ enable ? true : false }
-                                type='primary'
+                            <button
+                                className='btn btn-primary'
+                                disabled={ enable ? false : true }
+                                type='submit'
                                 onClick={ () => next() }>
                                 Next
-                            </Button>
+                            </button>
                         </div>
 
                     ) }
@@ -311,7 +344,7 @@ const Checkout = (props) => {
                         <div>
                             <Button
                                 type='primary'
-                                onClick={ () => { message.success('Đặt hàng thành công!'), navigate('/me/order') } }>
+                                onClick={ () => handleOrder() }>
                                 Done
                             </Button>
                         </div>

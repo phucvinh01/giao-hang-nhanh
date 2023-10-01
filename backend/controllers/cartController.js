@@ -225,6 +225,30 @@ const cartController = {
         }
 
 
+    },
+
+    emptyCart: async (req, res) => {
+        try {
+            const userId = req.body.userId;
+            let cart = await Cart.findOne({ userId: userId });
+            if (cart) {
+                cart.items = [];
+                cart.subTotal = 0;
+                cart = await cart.save();
+                return res.status(200).json({
+                    code: 200,
+                    message: "Delete successfully!",
+                    data: cart
+                })
+            }
+        }
+        catch (err) {
+            return res.status(500).json({
+                code: 200,
+                message: "Delete unsuccessfully!",
+            })
+        }
+
     }
 
 }

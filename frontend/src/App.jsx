@@ -20,6 +20,7 @@ import Cart from './pages/Cart'
 import { addToCartFailed } from './redux/cartSlice'
 import LayoutAdmin from './pages/Admin/Layout'
 import Checkout from './pages/Checkout'
+import MeOrder from './pages/MeOrder'
 function App() {
 
   const dispatch = useDispatch()
@@ -66,6 +67,8 @@ function App() {
           <Route path='product' element={ <Product /> } />
           <Route path='category/:path' element={ <Category /> } />
           <Route path='checkout/:id' element={ <Checkout /> } />
+          <Route path="me/order" element={ <MeOrder /> } />
+
           <Route path="*" element={ <ErrorPage /> } />
         </Route>
 

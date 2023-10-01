@@ -54,6 +54,9 @@ const Header = () => {
                 onClick={ handleLogOut }>
                 Log out
             </button>
+            <button className='btn btn-light'>
+                <Link to={ '/me/order' }>Order</Link>
+            </button>
         </div>
     );
     return (
