@@ -12,11 +12,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Employess from './pages/Admin/pages/Employess'
 import Sales from './pages/Admin/pages/Sales'
-import { getBrandList, getCart, getCategoryList, getProductList } from './redux/api'
+import { getCart, getProductList } from './redux/api'
 import { useDispatch, useSelector } from 'react-redux'
-import About from './pages/About'
-import Category from './pages/Category'
-import Cart from './pages/Cart'
 import { addToCartFailed } from './redux/cartSlice'
 import LayoutAdmin from './pages/Admin/Layout'
 import Checkout from './pages/Checkout'
@@ -43,8 +40,6 @@ function App() {
 
   useEffect(() => {
     getProductList(dispatch)
-    getCategoryList(dispatch)
-    getBrandList(dispatch)
   }, [])
 
   return (
@@ -65,10 +60,8 @@ function App() {
         <Route path="/" element={ <Layout /> }>
           <Route index element={ <Home /> } />
           <Route path='product' element={ <Product /> } />
-          <Route path='category/:path' element={ <Category /> } />
           <Route path='checkout/:id' element={ <Checkout /> } />
           <Route path="me/order" element={ <MeOrder /> } />
-
           <Route path="*" element={ <ErrorPage /> } />
         </Route>
 

@@ -46,6 +46,9 @@ const ModalDetail = (props) => {
                             <h6>Hình thức mua hàng</h6>
                             <Radio checked>Giao hàng</Radio>
                         </div>
+                        <div className=''>
+                            <p>{ state.description }</p>
+                        </div>
                         <div className='d-flex mb-3 gap-3'>
                             <div className='input-quantity'>
                                 <button className='btn' onClick={ () => setQuantity(quantity + 1) }><i className="fa-solid fa-plus"></i></button>

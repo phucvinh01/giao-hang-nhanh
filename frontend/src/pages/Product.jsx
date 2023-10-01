@@ -1,6 +1,5 @@
 import React from 'react'
 import Products from '../components/Products'
-import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 const Product = () => {
@@ -10,8 +9,8 @@ const Product = () => {
     return (
         <>
             <div className='container'>
-                <div className='d-flex gap-3' style={{ height: "40px" }}>
-                    <Link to={'/'} className='text-dark'>Home</Link>
+                <div className='d-flex gap-3' style={ { height: "40px" } }>
+                    <Link to={ '/' } className='text-dark'>Home</Link>
                     <span>&gt;</span>
                     <p className='text-muted'>Product</p>
                 </div>
@@ -21,7 +20,7 @@ const Product = () => {
 
                     </div>
                     <div className='col-md-10 col-sm-12'>
-                        <Products products={products} user={user} />
+                        <Products products={ products } user={ user } />
                     </div>
 
                 </div>

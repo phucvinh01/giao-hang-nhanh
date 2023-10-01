@@ -1,13 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { Card, Col, Row } from 'antd';
 import './Home.scss'
 import Products from '../components/Products';
 const Home = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const products = useSelector((state) => state.product.products.data);
-    const cate = useSelector((state) => state.category.category.data);
-
     return (
         <>
             <main className='container mt-3'>

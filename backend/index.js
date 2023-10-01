@@ -8,8 +8,6 @@ const dotenv = require("dotenv");
 const productRoute = require("./routes/product");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
-const brandRoute = require("./routes/brand");
-const categoryRoute = require("./routes/category");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 dotenv.config();
@@ -34,10 +32,6 @@ app.use("/v1/product", productRoute);
 app.use("/v1/user", userRoute)
 
 app.use("/v1/auth", authRoute)
-
-app.use("/v1/brand", brandRoute)
-
-app.use("/v1/category", categoryRoute)
 
 app.use("/v1/cart", cartRoute)
 

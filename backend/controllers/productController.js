@@ -1,4 +1,3 @@
-const { Category } = require("../model/categoryModel");
 const { Product } = require("../model/productModel");
 
 const productController = {
@@ -7,6 +6,7 @@ const productController = {
         const newProduct = new Product(req.body)
         try {
             const savedProduct = await newProduct.save();
+            console.log(savedProduct);
             res.status(200).json(savedProduct);
         } catch (err) {
             res.status(500).json(err);
@@ -31,22 +31,7 @@ const productController = {
             res.status(500).json(err);
         }
     },
-    getByCategory: async (req, res) => {
-        try {
-            const c = await Category.findOne({ "path": req.params.category })
-            try {
-                const products = await Product.find({ "category": c.name })
-                res.status(200).json(products)
-            }
-            catch (err) {
-                res.status(500).json(err);
-            }
-        }
-        catch (err) {
-            res.status(500).json(err);
-        }
 
-    },
 
     getOffsetNew: async (req, res) => {
         try {

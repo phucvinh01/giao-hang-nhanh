@@ -11,10 +11,6 @@ import './modalEdit.scss'
 
 const ModalEdit = (props) => {
     const { handleCancel, openEdit, state } = props;
-
-    const categories = useSelector((state) => state.category.category.data);
-    const brands = useSelector((state) => state.brand.brand.data);
-
     const { TextArea } = Input;
     const idd = useId();
     const [_id, setId] = useState('');
@@ -27,13 +23,6 @@ const ModalEdit = (props) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
-    const onChange = (value) => {
-        setCategory(value);
-    };
-
-    const onChangeBrand = (value) => {
-        setBrand(value);
-    };
 
     useEffect(() => {
         if (openEdit) {
@@ -56,7 +45,7 @@ const ModalEdit = (props) => {
                 price: price,
                 description: description,
                 img: res.data.secure_url,
-                brand: brand,
+                stock: brand,
                 category: category,
             });
             if (result) {
@@ -115,21 +104,12 @@ const ModalEdit = (props) => {
                                 className='form-label fw-bolder'>
                                 Category
                             </label>
-                            <Select
+                            <input
                                 value={ category }
-                                onChange={ onChange }
-                                id='category'
-                                style={ {
-                                    width: '100%',
-                                } }
-                                allowClear
-                                options={ categories.map((item) => {
-                                    return {
-                                        value: item.name,
-                                        key: item.name,
-                                    };
-                                }) }
-                            />
+                                onChange={ (e) => setCategory(e.target.value) }
+                                type='text'
+                                className='form-control'
+                                id={ idd + '-category' }></input>
                         </div>
                     </div>
                     <div className='col-lg-4 col-md-12 col-sm-12'>
